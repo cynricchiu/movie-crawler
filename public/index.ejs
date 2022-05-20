@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title><%= title %></title>
+		<link rel="stylesheet" href="./index.css" / type="text/css">
+	</head>
+	<body>
+		<div class="content">
+			<ul class="header">
+				<% category.forEach((type,index)=>{ %>
+				<li class="category"><%= type %></li>
+				<% }); %>
+			</ul>
+			<ul class="list">
+				<% content.forEach((item,index)=>{ %>
+				<li>
+					<img src="<%= item.img %>" />
+					<a target="_blank" href="<%= item.link %>"><%= item.title %></a>
+					<p>类别：<%= Array.from(item.types).join("/") %></p>
+					<p>评分：<%= item.rate %></p>
+				</li>
+				<% }); %>
+			</ul>
+		</div>
+	</body>
+	<script type="text/javascript">
+		const eles = document.getElementsByClassName('category');
+		const content = JSON.parse('<%- JSON.stringify(content) %>');
+		// 按分类排名筛选
+		Array.from(eles).forEach((ele, index) => {
+			ele.addEventListener('click', e => {
+				Array.from(eles).forEach((tempEle, tempIndex) => {
+					tempEle.style.background = tempIndex !== index ? 'transparent' : 'cornflowerblue';
+				});
+				const curType = ele.innerHTML;
+				let newContent = content;
+				if (curType !== '全部') {
+					const filterContent = content.filter(item => {
+						return item.types.includes(curType);
+					});
+					newContent = filterContent.sort((a, b) => {
+						return b.rate - a.rate;
+					});
+				}
+				let htmlstr = '';
+				newContent.forEach(item => {
+					htmlstr += `<li>
+					<img src="${item.img}"/>
+					<a target="_blank" href="${item.link}">${item.title}</a>
+					<p>类别：${Array.from(item.types).join('/')}</p>
+					<p>评分：${item.rate}</p>
+				</li>`;
+				});
+				document.getElementsByClassName('list')[0].innerHTML = htmlstr;
+			});
+		});
+	</script>
+</html>

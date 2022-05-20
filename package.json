@@ -1,0 +1,24 @@
+{
+	"name": "movie_crawler",
+	"version": "1.0.0",
+	"description": "从电影网站爬取可下载分类电影列表",
+	"main": "index.js",
+	"scripts": {
+		"start": "node ./index.js",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [
+		"crawler",
+		"电影"
+	],
+	"author": "流暝",
+	"license": "ISC",
+	"dependencies": {
+		"crawler": "^1.3.0",
+		"ejs": "^3.1.8",
+		"koa": "^2.13.4",
+		"koa-static": "^5.0.0",
+		"koa-views": "^8.0.0",
+		"open": "^8.4.0"
+	}
+}

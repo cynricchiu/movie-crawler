@@ -127,7 +127,9 @@ class MovieCrawler {
 	};
 
 	start = async pageCount => {
+		console.info('正在获取最新电影信息，请稍等。。。');
 		await this.fetchLinkList(pageCount);
+		console.info('列表获取完毕，正在获取详细信息。。。');
 		await this.fetchDescription();
 	};
 }
